@@ -1,6 +1,49 @@
+
 <!DOCTYPE html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+
 <html>
 <body>
-<h1>Hello Kolia</h1>
+<div class="row" style="margin-right: 20px; margin-left: 20px"><h1>Pokedex</h1></div>
+<div class="row" id="body" style="margin-right: 20px; margin-left: 20px"></div>
+<div class="row" style="margin-right: 20px; margin-left: 20px"><h1><a href="#">Learn more</a></h1></div>
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://pokeapi.co/api/v1/pokemon/?limit=12";
+
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var myArr = JSON.parse(xmlhttp.responseText);
+            myFunction(myArr);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function myFunction(arr) {
+        var out = "";
+        var i, j;
+        for (i = 0; i < arr.objects.length; i++) {
+
+            out += '<div class="col-xs-3" style="border: 2px solid black; margin: 2px;">';
+            out += '<p><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" class="img-responsive"/></p>';
+            out += '<p><a href="#">' + arr.objects[i].name + '</a></p>';
+            for (j = 0; j < arr.objects[i].types.length; j++) {
+                out += '<span> ' + arr.objects[i].types[j].name + ' </span>';
+            }
+            out += '</div>';
+
+        }
+        document.getElementById("body").innerHTML = out;
+    }
+</script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
 </html>
