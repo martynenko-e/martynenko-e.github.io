@@ -1,20 +1,36 @@
-
 <!DOCTYPE html>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+      integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
 
 <html>
 <body>
-<div class="row" style="margin-right: 20px; margin-left: 20px; width: 60%"><h1>Pokedex</h1></div>
-<div class="row" id="body" style="margin-right: 20px; margin-left: 20px; width: 60%"></div>
-<div class="row" style="margin-right: 20px; margin-left: 20px; width: 60%"><h1><a href="#">Learn more</a></h1></div>
+
+<div class="row" style="margin-right: 20px; margin-left: 20px; width: 100%"><h1>Pokedex</h1></div>
+
+<div class="row">
+    <div class="col-xs-6">
+        <div class="row" id="body" style="margin-right: 20px; margin-left: 20px;"></div>
+    </div>
+    <div class="col-xs-6">
+        <div id="info" class="sidebar-nav-fixed affix">
+            <p>info</p>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-right: 20px; margin-left: 20px; width: 100%" onclick="learnMore()"><h1>Learn more</h1>
+</div>
+
 <script>
     var xmlhttp = new XMLHttpRequest();
-    var url = "http://pokeapi.co/api/v1/pokemon/?limit=12";
+    var limit = 12;
+    var url = "http://pokeapi.co/api/v1/pokemon/?limit=" + limit;
 
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -25,12 +41,39 @@
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 
+
+    function refreshPage() {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://pokeapi.co/api/v1/pokemon/?limit=" + limit;
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var myArr = JSON.parse(xmlhttp.responseText);
+                myFunction(myArr);
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    }
+
+    function getFromUrl(id) {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://pokeapi.co/api/v1/pokemon/" + id;
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var myArr = JSON.parse(xmlhttp.responseText);
+                showInfo(myArr);
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    }
+
     function myFunction(arr) {
         var out = "";
         var i, j;
         for (i = 0; i < arr.objects.length; i++) {
 
-            out += '<div class="col-xs-3" style="border: 2px solid black; margin: 2px;">';
+            out += '<div class="col-xs-3" style="border: 2px solid black; margin: 2px;" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
             out += '<p><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" class="img-responsive"/></p>';
             out += '<p><a href="#">' + arr.objects[i].name + '</a></p>';
             for (j = 0; j < arr.objects[i].types.length; j++) {
@@ -41,9 +84,23 @@
         }
         document.getElementById("body").innerHTML = out;
     }
+    function showInfo(arr) {
+        out = '';
+        out += '<p><img src="http://pokeapi.co/media/img/' + arr.national_id + '.png" class="img-responsive"/></p>';
+        out += '<p>name: ' + arr.name + '</p>';
+        out += '<p>speed : ' + arr.speed + '</p>';
+        document.getElementById("info").innerHTML = out;
+    }
+
+    function learnMore() {
+        limit += 12;
+        refreshPage();
+    }
 </script>
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
 </body>
 </html>
