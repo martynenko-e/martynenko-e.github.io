@@ -75,7 +75,7 @@
 
             out += '<div class="col-xs-3" style="border: 2px solid black; margin: 2px;" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
             out += '<p><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" class="img-responsive"/></p>';
-            out += '<p><a href="#">' + arr.objects[i].name + '</a></p>';
+            out += '<p>' + arr.objects[i].name + '</p>';
             for (j = 0; j < arr.objects[i].types.length; j++) {
                 out += '<span> ' + arr.objects[i].types[j].name + ' </span>';
             }
