@@ -11,20 +11,26 @@
 <html>
 <body>
 
-<div class="row" style="margin-right: 20px; margin-left: 20px; width: 100%"><h1>Pokedex</h1></div>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <h1 class="centered">Pokedex</h1>
+    </div>
+</nav>
 
-<div class="row">
-    <div class="col-xs-6">
+<div class="row" style="margin-top: 80px">
+    <div class="col-xs-8">
         <div class="row" id="body" style="margin-right: 20px; margin-left: 20px;"></div>
     </div>
-    <div class="col-xs-6">
-        <div id="info" class="sidebar-nav-fixed affix">
-            <p>info</p>
-        </div>
+    <div class="col-xs-4">
+        <div id="info" class="sidebar-nav-fixed affix"></div>
     </div>
 </div>
 
-<div class="row" style="margin-right: 20px; margin-left: 20px; width: 100%" onclick="learnMore()"><h1>Learn more</h1>
+<div class="row" style="margin-right: 20px; margin-left: 20px; width: 100%">
+    <div class="col-xs-8">
+        <button type="button" class="btn btn-primary btn-lg" style="width: 70%" onclick="learnMore()">Learn more
+        </button>
+    </div>
 </div>
 
 <script>
@@ -73,28 +79,56 @@
         var i, j;
         for (i = 0; i < arr.objects.length; i++) {
 
-            out += '<div class="col-xs-3" style="border: 2px solid black; margin: 2px;" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
-            out += '<p><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" class="img-responsive"/></p>';
-            out += '<p>' + arr.objects[i].name + '</p>';
+            out += '<div title="Show more info" class="col-xs-3" style="border: 2px solid black; margin: 2px;" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
+            out += '<table class="table">'
+            out += '<tr><td><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" class="img-responsive"/></td></tr>';
+            out += '<tr><td>' + arr.objects[i].name + '</td></tr>';
+            out += '<tr><td>';
             for (j = 0; j < arr.objects[i].types.length; j++) {
                 out += '<span> ' + arr.objects[i].types[j].name + ' </span>';
             }
+            out += '</td></tr>';
+            out += '</table>';
             out += '</div>';
 
         }
         document.getElementById("body").innerHTML = out;
     }
     function showInfo(arr) {
-        out = '';
-        out += '<p><img src="http://pokeapi.co/media/img/' + arr.national_id + '.png" class="img-responsive"/></p>';
-        out += '<p>name: ' + arr.name + '</p>';
-        out += '<p>speed : ' + arr.speed + '</p>';
+        var j;
+        var out = '';
+
+        out += '<img src="http://pokeapi.co/media/img/' + arr.national_id + '.png" class="img-responsive"/>';
+        out += '<h3>' + arr.name + ' #' + zeroPad(arr.national_id, 3) + '</h3>';
+        out += '<table class="table">';
+        out += '<tr><td>type: </td><td>';
+        for (j = 0; j < arr.types.length; j++) {
+            out += arr.types[j].name + ' ';
+        }
+        out += '</td></tr>';
+        out += '<tr><td>Attack: </td><td>' + arr.attack + '</td></tr>';
+        out += '<tr><td>Defense: </td><td>' + arr.defense + '</td></tr>';
+        out += '<tr><td>HP: </td><td>' + arr.hp + '</td></tr>';
+        out += '<tr><td>SP attack: </td><td>' + arr.sp_atk + '</td></tr>';
+        out += '<tr><td>SP defense: </td><td>' + arr.sp_def + '</td></tr>';
+        out += '<tr><td>Speed : </td><td>' + arr.speed + '</td></tr>';
+        out += '<tr><td>Weight : </td><td>' + arr.weight + '</td></tr>';
+        out += '<tr><td>Total moves : </td><td>' + arr.total + '</td></tr>';
+        out += '</table>';
         document.getElementById("info").innerHTML = out;
     }
 
     function learnMore() {
         limit += 12;
         refreshPage();
+    }
+
+    function zeroPad(num, count) {
+        var numZeropad = num + '';
+        while (numZeropad.length < count) {
+            numZeropad = "0" + numZeropad;
+        }
+        return numZeropad;
     }
 </script>
 
