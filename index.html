@@ -7,30 +7,44 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
       integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-
-<html>
-<body style="min-width: 600px">
-
-<nav class="navbar navbar-default navbar-fixed-top">
+<style>
+    .sidebar {
+        position: fixed;
+        margin-left: 60%;
+    }
+    .container {
+        margin-top: 40px;
+    }
+    .custom-table {
+        border: 1px solid grey;
+        margin-left: 40%;
+    }
+    .custom-table td{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+<body>
+<div class="container wrap sidebar-right">
+    <div class="row">
+        <div class="navbar navbar-fixed-top">
+            <table class="custom-table">
+                <tr><td><h1>Pokedex</h1></td></tr>
+            </table>
+        </div>
+    </div>
     <div class="container">
-        <h1 class="centered">Pokedex</h1>
+        <div class="row">
+            <div class="main col-xs-8">
+                <div id="body"></div>
+                <button type="button" class="btn btn-primary btn-lg" style="width: 100%" onclick="learnMore()">Learn more</button>
+            </div>
+            <div class="sidebar col-xs-4">
+                <div id="info"></div>
+            </div>
+        </div>
     </div>
-</nav>
 
-<div class="row" style="margin-top: 80px">
-    <div class="col-xs-9">
-        <div class="row" id="body" style="margin-right: 20px; margin-left: 20px;"></div>
-    </div>
-    <div class="col-xs-3">
-        <div id="info" class="sidebar-nav-fixed affix"></div>
-    </div>
-</div>
-
-<div class="row" style="margin-right: 20px; margin-left: 20px; width: 100%">
-    <div class="col-xs-9">
-        <button type="button" class="btn btn-primary btn-lg" style="width: 70%" onclick="learnMore()">Learn more
-        </button>
-    </div>
 </div>
 
 <script>
@@ -78,14 +92,13 @@
         var out = "";
         var i, j;
         for (i = 0; i < arr.objects.length; i++) {
-
-            out += '<div title="Show more info" class="col-xs-3" style="border: 2px solid black; margin: 2px;" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
-            out += '<table class="table-responsive">'
+            out += '<div class="col-xs-4">';
+            out += '<table class="table table-responsive" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
             out += '<tr><td><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" class="img-responsive"/></td></tr>';
             out += '<tr><td>' + arr.objects[i].name + '</td></tr>';
             out += '<tr><td>';
             for (j = 0; j < arr.objects[i].types.length; j++) {
-                out += '<span> ' + arr.objects[i].types[j].name + ' </span>';
+                out += '<button type="button" class="btn btn-sm" onclick="">' + arr.objects[i].types[j].name + '</button>';
             }
             out += '</td></tr>';
             out += '</table>';
@@ -101,7 +114,7 @@
         out += '<img src="http://pokeapi.co/media/img/' + arr.national_id + '.png" class="img-responsive"/>';
         out += '<h3>' + arr.name + ' #' + zeroPad(arr.national_id, 3) + '</h3>';
         out += '<table class="table">';
-        out += '<tr><td>type: </td><td>';
+        out += '<tr><td>Type: </td><td>';
         for (j = 0; j < arr.types.length; j++) {
             out += arr.types[j].name + ' ';
         }
