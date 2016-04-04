@@ -153,10 +153,15 @@
         }
 
         img {
+            height: 10vw;
             width: 70%;
         }
         option {
             font-size: 1.1vw;
+        }
+
+        body {
+            height: 100%;
         }
     </style>
 
@@ -215,12 +220,17 @@
         </div>
     </div>
 </div>
-
 <script>
     var xmlhttp = new XMLHttpRequest();
     var limit = 12;
     var url = "http://pokeapi.co/api/v1/pokemon/?limit=" + limit;
     xmlhttp.onreadystatechange = function () {
+        if(xmlhttp.readyState == 1) {
+            document.body.style.cursor = 'wait';
+        }
+        else{
+            document.body.style.cursor = 'auto';
+        }
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var myArr = JSON.parse(xmlhttp.responseText);
             myFunction(myArr);
@@ -232,6 +242,12 @@
         var xmlhttp = new XMLHttpRequest();
         var url = "http://pokeapi.co/api/v1/pokemon/?limit=" + limit;
         xmlhttp.onreadystatechange = function () {
+            if(xmlhttp.readyState == 1) {
+                document.body.style.cursor = 'wait';
+            }
+            else{
+                document.body.style.cursor = 'auto';
+            }
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var myArr = JSON.parse(xmlhttp.responseText);
                 myFunction(myArr);
@@ -244,6 +260,12 @@
         var xmlhttp = new XMLHttpRequest();
         var url = "http://pokeapi.co/api/v1/pokemon/" + id;
         xmlhttp.onreadystatechange = function () {
+            if(xmlhttp.readyState == 1) {
+                document.body.style.cursor = 'wait';
+            }
+            else{
+                document.body.style.cursor = 'auto';
+            }
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var myArr = JSON.parse(xmlhttp.responseText);
                 showInfo(myArr);
@@ -320,6 +342,5 @@
         }
     }
 </script>
-
 </body>
 </html>
