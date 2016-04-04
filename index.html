@@ -1,35 +1,203 @@
 <!DOCTYPE html>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-      integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-<style>
-    .sidebar {
-        position: fixed;
-        margin-left: 60%;
-    }
-    .container {
-        margin-top: 40px;
-    }
-    .custom-table {
-        border: 1px solid grey;
-        margin-left: 40%;
-    }
-    .custom-table td{
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-</style>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.1.js"></script>
+    <style>
+        .sidebar {
+            position: fixed;
+            margin-left: 60%;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .custom-table {
+            border: 1px solid grey;
+            align-content: center;
+        }
+
+        .custom-table td {
+            background-color: #fefaff;
+            width: 50%;
+            text-align: center;
+            font-size: 3vw;
+        }
+
+        .pokemon {
+            margin-bottom: 2%;
+            margin-right: 2%;
+            border: 1px solid #33323a;
+            width: 31%;
+        }
+
+        .pokemon-info {
+            margin-bottom: 2%;
+            margin-right: 2%;
+            border: 1px solid #33323a;
+            width: 75%;
+        }
+
+        .normal {
+            border: 1px solid darkgrey;
+            background-color: lightgrey;
+        }
+
+        .fire {
+            border: 1px solid darkred;
+            background-color: lightcoral;
+        }
+
+        .poison {
+            border: 1px solid darkgreen;
+            background-color: #478042;
+        }
+
+        .water {
+            border: 1px solid blue;
+            background-color: aqua;
+        }
+
+        .flying {
+            border: 1px solid darkviolet;
+            background-color: blueviolet;
+        }
+
+        .bug {
+            border: 1px solid brown;
+            background-color: burlywood;
+        }
+
+        .electric {
+            border: 1px solid orange;
+            background-color: yellow;
+        }
+
+        .ground {
+            border: 1px solid brown;
+            background-color: saddlebrown;
+        }
+
+        .fairy {
+            border: 1px solid deeppink;
+            background-color: pink;
+        }
+
+        .grass {
+            border: 1px solid green;
+            background-color: greenyellow;
+        }
+
+        .fighting {
+            border: 1px solid #214e80;
+            background-color: #7c55ff;
+        }
+
+        .ghost {
+            border: 1px solid #52806a;
+            background-color: #287769;
+        }
+
+        .dark {
+            border: 1px solid #cfcdd3;
+            background-color: #97b8b6;
+        }
+
+        .steel {
+            border: 1px solid #cfcdd3;
+            background-color: #97b8b6;
+        }
+
+        .psychic {
+            border: 1px solid #cfcdd3;
+            background-color: #97b8b6;
+        }
+
+        .dragon {
+            border: 1px solid #d31011;
+            background-color: #b8b62a;
+        }
+
+        .ice {
+            border: 1px solid #1dd3c0;
+            background-color: #3fa3b8;
+        }
+
+        .rock {
+            border: 1px solid #653d3e;
+            background-color: #33323a;
+        }
+
+        .type {
+            border-radius: 5px;
+            text-align: center;
+            margin: 2%;
+            font-size: 1.1vw;
+            padding: 1% 3% 1% 3%;
+        }
+
+        div {
+            text-align: center;
+            font-size: 1.1vw;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        img {
+            width: 70%;
+        }
+        option {
+            font-size: 1.1vw;
+        }
+    </style>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+</head>
+
 <body>
+
 <div class="container wrap sidebar-right">
     <div class="row">
         <div class="navbar navbar-fixed-top">
-            <table class="custom-table">
-                <tr><td><h1>Pokedex</h1></td></tr>
+            <table class="custom-table" align="center">
+                <tr>
+                    <td>Pokedex</td>
+                    <td>
+                        Filter by type: <select onChange="filterByType(this)">
+                            <option>all</option>
+                            <option>fire</option>
+                            <option>normal</option>
+                            <option>poison</option>
+                            <option>water</option>
+                            <option>flying</option>
+                            <option>bug</option>
+                            <option>electric</option>
+                            <option>ground</option>
+                            <option>fairy</option>
+                            <option>grass</option>
+                            <option>fighting</option>
+                            <option>ghost</option>
+                            <option>dark</option>
+                            <option>steel</option>
+                            <option>psychic</option>
+                            <option>dragon</option>
+                            <option>ice</option>
+                            <option>rock</option>
+                        </select>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -37,21 +205,21 @@
         <div class="row">
             <div class="main col-xs-8">
                 <div id="body"></div>
-                <button type="button" class="btn btn-primary btn-lg" style="width: 100%" onclick="learnMore()">Learn more</button>
+                <div class="btn btn-primary btn-lg" style="width: 97%; float: left" onclick="learnMore()">Learn
+                    more
+                </div>
             </div>
             <div class="sidebar col-xs-4">
                 <div id="info"></div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
     var xmlhttp = new XMLHttpRequest();
     var limit = 12;
     var url = "http://pokeapi.co/api/v1/pokemon/?limit=" + limit;
-
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var myArr = JSON.parse(xmlhttp.responseText);
@@ -60,8 +228,6 @@
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
-
-
     function refreshPage() {
         var xmlhttp = new XMLHttpRequest();
         var url = "http://pokeapi.co/api/v1/pokemon/?limit=" + limit;
@@ -74,7 +240,6 @@
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
     }
-
     function getFromUrl(id) {
         var xmlhttp = new XMLHttpRequest();
         var url = "http://pokeapi.co/api/v1/pokemon/" + id;
@@ -87,36 +252,33 @@
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
     }
-
     function myFunction(arr) {
         var out = "";
         var i, j;
         for (i = 0; i < arr.objects.length; i++) {
-            out += '<div class="col-xs-4">';
-            out += '<table class="table table-responsive" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
-            out += '<tr><td><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" class="img-responsive"/></td></tr>';
+            out += '<div class="col-xs-3 pokemon">';
+            out += '<table style="margin-bottom: 0;" class="table" onclick="getFromUrl(' + arr.objects[i].national_id + ')">';
+            out += '<tr><td><img src="http://pokeapi.co/media/img/' + arr.objects[i].national_id + '.png" align="middle"/></td></tr>';
             out += '<tr><td>' + arr.objects[i].name + '</td></tr>';
             out += '<tr><td>';
             for (j = 0; j < arr.objects[i].types.length; j++) {
-                out += '<button type="button" class="btn btn-sm" onclick="">' + arr.objects[i].types[j].name + '</button>';
+                out += '<span class="type ' + arr.objects[i].types[j].name + '" onclick="">' + arr.objects[i].types[j].name + '</span>';
             }
             out += '</td></tr>';
             out += '</table>';
             out += '</div>';
-
         }
         document.getElementById("body").innerHTML = out;
     }
     function showInfo(arr) {
         var j;
-        var out = '';
-
-        out += '<img src="http://pokeapi.co/media/img/' + arr.national_id + '.png" class="img-responsive"/>';
-        out += '<h3>' + arr.name + ' #' + zeroPad(arr.national_id, 3) + '</h3>';
+        var out = '<div class="pokemon-info">';
+        out += '<img src="http://pokeapi.co/media/img/' + arr.national_id + '.png" align="middle" style="width: 40%"/>';
+        out += '<h4>' + arr.name + ' #' + zeroPad(arr.national_id, 3) + '</h4>';
         out += '<table class="table">';
         out += '<tr><td>Type: </td><td>';
         for (j = 0; j < arr.types.length; j++) {
-            out += arr.types[j].name + ' ';
+            out += '<span class="type ' + arr.types[j].name + '">' + arr.types[j].name + '</span>';
         }
         out += '</td></tr>';
         out += '<tr><td>Attack: </td><td>' + arr.attack + '</td></tr>';
@@ -128,16 +290,15 @@
         out += '<tr><td>Weight : </td><td>' + arr.weight + '</td></tr>';
         out += '<tr><td>Total moves : </td><td>' + arr.total + '</td></tr>';
         out += '</table>';
+        out += '</div>';
         document.getElementById("info").innerHTML = out;
     }
-
     function learnMore() {
         if (limit < 999) {
             limit += 12;
             refreshPage();
         }
     }
-
     function zeroPad(num, count) {
         var numZeropad = num + '';
         while (numZeropad.length < count) {
@@ -145,11 +306,20 @@
         }
         return numZeropad;
     }
+
+    function filterByType(type) {
+        var pokemons = document.getElementsByClassName('pokemon');
+        for (var j = 0; j < pokemons.length; j++) {
+            pokemons[j].style.display = 'inline';
+            if(pokemons[j].innerHTML.indexOf(type.value) == -1) {
+                pokemons[j].style.display = 'none';
+            }
+            if (type.value == 'all') {
+                pokemons[j].style.display = 'inline';
+            }
+        }
+    }
 </script>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
 </body>
 </html>
