@@ -22,8 +22,9 @@
         .custom-table {
             border: 1px solid grey;
             align-content: center;
-        }
 
+        }
+        
         .custom-table td {
             background-color: #fefaff;
             width: 50%;
@@ -40,9 +41,9 @@
 
         .pokemon-info {
             margin-bottom: 2%;
-            margin-right: 2%;
+            margin-right: 10%;
             border: 1px solid #33323a;
-            width: 75%;
+            width: 60%;
         }
 
         .normal {
@@ -152,16 +153,25 @@
             text-align: center;
         }
 
-        img {
+        .pokemon-info img {
             height: 10vw;
+        }
+
+        img {
+            height: 8vw;
             width: 70%;
         }
+
         option {
             font-size: 1.1vw;
         }
 
-        body {
+        html {
             height: 100%;
+        }
+
+        body {
+            min-height: 100%;
         }
     </style>
 
@@ -208,13 +218,13 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="main col-xs-8">
+            <div class="main col-xs-7">
                 <div id="body"></div>
                 <div class="btn btn-primary btn-lg" style="width: 97%; float: left" onclick="learnMore()">Learn
                     more
                 </div>
             </div>
-            <div class="sidebar col-xs-4">
+            <div class="sidebar col-xs-5">
                 <div id="info"></div>
             </div>
         </div>
