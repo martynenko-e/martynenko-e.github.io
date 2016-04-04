@@ -1,7 +1,7 @@
 Test task for Kottans
 ============
 
-[run app](http://martynenko-e.github.io/)
+> [Run app](http://martynenko-e.github.io/)
 
 Used frameworks:
 ------------
