@@ -1,7 +1,7 @@
 Test task for Kottans
 ============
 
-Use frameworks:
+Used frameworks:
 ------------
- 1. bootstrap
+ 1. Bootstrap
 
